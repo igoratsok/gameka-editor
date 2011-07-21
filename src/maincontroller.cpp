@@ -459,6 +459,8 @@ void MainController::createDirectoryStructure(std::string *filePath) {
     copyFolder(QString("objects"), destPath);
     copyFolder(QString("sfx"), destPath);
     copyFolder(QString("tilesets"), destPath);
+
+    copyWin32dll(QString(destPath.c_str()));
 }
 
 void MainController::copyFolder(QString folder, std::string destPath) {
@@ -469,6 +471,26 @@ void MainController::copyFolder(QString folder, std::string destPath) {
     foreach(QString file, files) {
         if(!file.isEmpty() && file.at(0) != '.') {
             copyFileToProject(QString(folder).append("/").append(file), destPath);
+        }
+
+    }
+}
+
+
+void MainController::copyWin32dll(QString destPath) {
+    QDir dir = QDir(QString("data/windll/"));
+    QStringList files = dir.entryList();
+
+
+    foreach(QString file, files) {
+        if(!file.isEmpty() && file.at(0) != '.') {
+
+
+
+            if(!QFile().copy(QString("data/windll/").append(file), QString(destPath).append("/").append(file))) {
+                std::cout << "Falha no carregamento do " << file.toStdString() << std::endl;
+                exit(1);
+            }
         }
 
     }

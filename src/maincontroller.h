@@ -266,6 +266,15 @@ private:
      * @param destPath
      */
     void copyFolder(QString folder, std::string destPath);
+
+
+    /**
+     * @brief Copia as DLLs de Windows para a pasta do projeto.
+     *
+     * @param destPath
+     */
+    void copyWin32dll(QString destPath);
+
     /**
      * @brief Copia arquivo para o projeto.
      *
